@@ -2,9 +2,9 @@ import {
     PASSWORD_RESET_REQUEST_TEMPLATE,
     PASSWORD_RESET_SUCCESS_TEMPLATE,
     VERIFICATION_EMAIL_TEMPLATE
-} from './email-templates.js';
+} from '../email-templates.js';
 
-import { mailtrapClient, sender } from './config.js';
+import { mailtrapClient, sender } from '../config/mailtrap.js';
 
 export const sendVerificationEmail = async (email, verificationToken) => {
     const recipient = [{ email }];
@@ -24,7 +24,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
     }
 };
 
-export const sendWelcomeEmail = async (email, name) => {
+export const sendWelcomeEmail = async (email) => {
     const recipient = [{ email }];
 
     try {

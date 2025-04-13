@@ -2,7 +2,7 @@ import bcryptjs from 'bcryptjs';
 
 import { User } from '../models/user-model.js';
 import { generateVerificationToken, setJWTCookie } from '../helpers/auth-helper.js';
-import { sendVerificationEmail, sendWelcomeEmail } from '../mailtrap/email.js';
+import { sendVerificationEmail, sendWelcomeEmail } from '../services/mailtrap-service.js';
 
 export const signUp = async (req, res) => {
     const { email, password } = req.body;
