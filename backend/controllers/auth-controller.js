@@ -46,7 +46,34 @@ export const signUp = async (req, res) => {
 };
 
 export const signIn = async (req, res) => {
-    res.send('signIn route');
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'Invalid credentials' });
+        }
+
+        const isPasswordValid = await bcryptjs.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ success: false, message: 'Invalid credentials' });
+        }
+
+        setJWTCookie(res, user._id);
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Logged in successfully',
+            user: {
+                ...user._doc,
+                password: undefined
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
 };
 
 export const signOut = async (req, res) => {
