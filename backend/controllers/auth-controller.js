@@ -46,12 +46,12 @@ export const signUp = async (req, res) => {
 };
 
 export const signIn = async (req, res) => {
-    res.clearCookie('token');
-    res.status(200).json({ success: true, message: 'Signed out successfully' });
+    res.send('signIn route');
 };
 
 export const signOut = async (req, res) => {
-    res.send('signout route');
+    res.clearCookie('token');
+    res.status(200).json({ success: true, message: 'Signed out successfully' });
 };
 
 export const verifyEmail = async (req, res) => {
